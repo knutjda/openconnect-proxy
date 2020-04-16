@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+openconnect --version
 
 sed "s/^Port .*$/Port 8888/" -i /etc/tinyproxy.conf
 /usr/bin/tinyproxy -c /etc/tinyproxy.conf
@@ -15,6 +17,7 @@ run () {
     (echo $OPENCONNECT_PASSWORD; echo $OPENCONNECT_MFA_CODE) | openconnect -u $OPENCONNECT_USER $OPENCONNECT_OPTIONS --passwd-on-stdin $OPENCONNECT_URL
   elif [[ ! -z "${OPENCONNECT_PASSWORD}" ]]; then
   # Standard authentication
+  # Add --verbose flag to openconnect for debugging
     echo $OPENCONNECT_PASSWORD | openconnect -u $OPENCONNECT_USER $OPENCONNECT_OPTIONS --passwd-on-stdin $OPENCONNECT_URL
   fi
 }
